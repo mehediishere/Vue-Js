@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Creepster">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <title>Slayer</title>
+</head>
+<body class="bg">
+    <div id="slayer" style="background-color: rgba(255, 255, 255, 0.541);">
+        <p style="font-family: Goblin One;">By <a href="https://www.linkedin.com/in/mh-mehedi-hasan/">Mehedi H.</a> <br> Get Source Code : <a href="">Github</a> <br> {{ version }}</p>
+        <section class="row" :class="{ 'vibrate-1' : sp }">
+            <div class="col-6">
+                <h1 class="text-center">INOSUKE</h1>
+                <span class="d-flex justify-content-center mt-5 mb-5" style="width: 100%; height: 130px;">
+                    <img :src='playerImg' style="width: 200px; height: 130px;" alt="slayer 01">
+                </span>
+                <div class="healthbar">
+                    <div class="healthbar text-center" style="background: linear-gradient(#ecaa67, #e5df91); margin: 0; color: white;"
+                     :style="{width: playerHealth + '%'}">
+                        {{ playerHealth }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <h1 class="text-center">MONSTER</h1>
+                <span class="d-flex justify-content-center mt-5 mb-5" style="width: 100%; height: 130px;">
+                    <img :src="monsterImg" style="width: auto; height: 140px;" alt="monster 01">
+                </span>
+                <div class="healthbar">
+                    <div class="healthbar text-center" style="background: linear-gradient(#332e2c, #add0ec); margin: 0; color: white;"
+                    :style="{width: monsterHealth + '%'}">
+                        {{ monsterHealth }}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="row controls mt-5" v-if="!gameRunning">
+            <div class="small-12 columns">
+                <button id="start-game" class="btn" @click="startGame">START NEW GAME</button>
+            </div>
+        </section>
+        <section class="controls container mt-5" v-else>
+            <div class="row">
+                <div class="col-6">
+                    <div class="mt-2 mb-2">
+                        <button id="attack" class="btn" :class="{ disabled : attackDisable }" @click="attack">ATTACK</button>
+                        <button id="special-attack" class="btn" :class="{ disabled : attackDisable }" @click="specialAttack">SPECIAL ATTACK</button>
+                        <button id="heal" class="btn" :class="{ disabled : attackDisable }" @click="heal">HEAL</button>
+                        <button id="give-up" class="btn" @click="run">RUN</button>
+                    </div>
+                    <div>
+                        <audio :src="audioFx" autoplay>
+                            <p>If you are reading this, it is because your browser does not support the audio element.</p>
+                            <embed :src="audioFx" width="180" height="90" hidden="true" />
+                        </audio>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="log ex1">
+                        <div>
+                            <ul>
+                                <li v-for="turn in turns"
+                                    :class="{'player-turn': turn.isPlayer, 'monster-turn': !turn.isPlayer}">
+                                    {{ turn.text }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="d-flex justify-content-center mt-5 mb-5" style="opacity: 0.5;">
+        <audio id="backgroundMusic" src="audio/bgmusic.mp3" autoplay controls loop>
+            <p>If you are reading this, it is because your browser does not support the audio element.</p>
+            <embed src="audio/bgmusic.mp3" width="180" height="90" hidden="true" />
+        </audio>
+    </div>
+    <div class="d-flex justify-content-center mt-5 mb-5">
+        <p style="font-family: Goblin One;">Credit to the rightful owners for pictures & media used.</p>
+    </div>
+    <script>
+        var audio = document.getElementById("backgroundMusic");
+        audio.volume = 0.3;
+      </script>
+    <script src="action.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+</body>
+</html>
